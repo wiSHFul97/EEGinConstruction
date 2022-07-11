@@ -1,0 +1,4 @@
+Assets/ArcGISMapsSDK/ filter=lfs diff=lfs merge=lfs -text
+Assets/ArcGISMapsSDK/Binaries/macOS/x64/libruntimecore.dylib filter=lfs diff=lfs merge=lfs -text
+Assets/ArcGISMapsSDK/Binaries/iOS/arm64/Runtimecore.framework/Runtimecore filter=lfs diff=lfs merge=lfs -text
+Assets/ArcGISMapsSDK/Binaries/iOS/simx64/Runtimecore.framework/Runtimecore filter=lfs diff=lfs merge=lfs -text
