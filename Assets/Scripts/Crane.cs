@@ -11,6 +11,8 @@ public class Crane : MonoBehaviour
 
     [SerializeField] private float ropeDistanceToTargetY;
 
+    [SerializeField] private float smothnessSpeed;
+
     
 
 
@@ -25,22 +27,20 @@ public class Crane : MonoBehaviour
         relativeRotation = Quaternion.AngleAxis(90, Vector3.up) * relativeRotation;
         // the second argument, upwards, defaults to Vector3.up
         Quaternion targetRotation = Quaternion.LookRotation(relativeRotation, Vector3.up);
-        rotation.rotation = targetRotation;
-        
+        // rotation.rotation = targetRotation;
+        rotation.rotation = Quaternion.Slerp(rotation.rotation , targetRotation , 0.2f);
+
         //gollab
         Vector3 radiusVector3 = target.position;
         radiusVector3.y = radius.position.y;
-        radius.position = radiusVector3;
+        // radius.position = radiusVector3;
+        radius.position = Vector3.Lerp(radius.position , radiusVector3 , 0.2f);
         
         //rope
         Vector3 ropePos = rope.transform.position;
         ropePos.y = target.position.y + ropeDistanceToTargetY;
-        rope.position = ropePos;
+        // rope.position = ropePos;
         
-        
-
-
-
-
+        rope.position = Vector3.Lerp(rope.position, ropePos , 0.2f);
     }
 }
