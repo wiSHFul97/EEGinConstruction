@@ -12,6 +12,7 @@ using Esri.GameEngine.Location;
 using Esri.ArcGISMapsSDK.Utils.Math;
 using Esri.ArcGISMapsSDK.Utils.GeoCoord;
 using Esri.ArcGISMapsSDK.Components;
+using Newtonsoft.Json;
 
 public class NetworkManager : Singleton<NetworkManager>
 {
@@ -90,34 +91,34 @@ public class NetworkManager : Singleton<NetworkManager>
     {
         //while (!tasks.IsEmpty && !craneTasks.IsEmpty)
         //{
-            //Debug.Log("updateeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-            //Worker worker;
-            //bool isFind = tasks.TryDequeue(out worker);
-            //if (isFind)
-            //{
-            //    updateWorkers(worker);
-            //}
+        //Debug.Log("updateeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+        //Worker worker;
+        //bool isFind = tasks.TryDequeue(out worker);
+        //if (isFind)
+        //{
+        //    updateWorkers(worker);
+        //}
 
-            CraneTask craneTask;
-            bool isFind = craneTasks.TryDequeue(out craneTask);
-            if (isFind)
-            {
-                craneUpdate(craneTask);
-            }
-            
+        CraneTask craneTask;
+        bool isFind = craneTasks.TryDequeue(out craneTask);
+        if (isFind)
+        {
+            craneUpdate(craneTask);
+        }
+
         //}
     }
 
     private void craneUpdate(CraneTask craneTask)
     {
         //new gps tool kit
-        Debug.Log("---- " + craneTask.x + " " + craneTask.y + " " + craneTask.z);
+        Debug.Log("---- " + craneTask.x + " " + craneTask.y + " " + craneTask.z + " qos :" + craneTask.qos);
         var latlon = new LatLon(Double.Parse(craneTask.y), Double.Parse(craneTask.x), Double.Parse(craneTask.z));
         // var latlon = new LatLon(35.6887381798642, 51.4389399276739, 10.8663187026978);
-		latlon.Altitude -= 1271;
-		Debug.Log(latlon.Latitude + " " + latlon.Longitude + " " + latlon.Altitude);
-		ArcGISLocationComponent arcGISLocationComponent = craneTarget.GetComponent<ArcGISLocationComponent>();
-		arcGISLocationComponent.Position = latlon;
+        latlon.Altitude -= 1271;
+        Debug.Log(latlon.Latitude + " " + latlon.Longitude + " " + latlon.Altitude);
+        ArcGISLocationComponent arcGISLocationComponent = craneTarget.GetComponent<ArcGISLocationComponent>();
+        arcGISLocationComponent.Position = latlon;
         // craneTarget.position = new Vector3((float)v.x, (float)v.y, (float)v.z);
     }
 
@@ -146,70 +147,84 @@ public class NetworkManager : Singleton<NetworkManager>
 
     private void incomingMsgHandler(string str)
     {
+        Debug.Log("***" + str + "***");
         if (str == "accept" || str == "refreshed")
         {
             //ignore in this cases
-            return;
-        }
-        else
+            Debug.Log("ignored");
+        }else
         {
-            string[] parts = str.Split(' ');
-            if (parts.Length == 6)
-            {
-                Debug.Log("does not supported 5 param");
-            }
-            else if (parts.Length == 4 || parts.Length == 5)
-            {
-                Worker newWork = new Worker();
-                if (parts[0][0] == '$' || parts[0].Contains(craneName)) //if the name start with $ its gps data
-                {
-                    if (!isUTM)
-                    {
-                        // some functions handle isUtm inside of them ,
-                        // but inside this scope we handle degree input 
-                        // lets do it :)
-                        CraneTask newCraneTask = new CraneTask();
-                        //Debug.Log("parts : " + parts[1] + " _ " + parts[2] + " _ " + parts[3]);
-                        if(parts.Length == 5){
-                            newCraneTask.SetParams(parts[1],parts[2],parts[3],parts[4]);
-                        }else{
-                            newCraneTask.SetParams(parts[1],parts[2],parts[3]);
-                        }
-                        craneTasks.Enqueue(newCraneTask);
-                        //Debug.Log(craneTasks.IsEmpty);
-                        return;
-                    }
-                    
-                    // Debug.Log("parts : " + parts[1] + " _ " + parts[2] + " _ " + parts[3]);
-                    // double latitude = latitudeConvertToDegree(parts[1]);
-                    // double longtitude = longtitudeConvertToDegree(parts[2]);
-                    // float height = float.Parse(parts[3]);
-
-                    // Vector3 newTargetPos = findPosWithGpsData(latitude, longtitude, height);
-
-                    // Debug.Log(newTargetPos);
-                    
-                    
-                    // newWork.SetParams(parts[0], (int) (newTargetPos.x * ToMilimeter) * scale,
-                    //    (int) (newTargetPos.z * ToMilimeter) * scale,
-                    //    (int) (newTargetPos.y * ToMilimeter) * scale
-                    // );
-                }
-                else
-                {
-                    //todo probably u must change the indexes if u rotate the sensors in test env
-                    newWork.SetParams(parts[0], Convert.ToInt32(parts[1]) * scale, Convert.ToInt32(parts[3]) * scale,
-                        Convert.ToInt32(parts[2]) * scale);
-                }
-
-                //tasks.Enqueue(newWork);
-                Debug.Log(newWork.ToString());
-            }
-            else
-            {
-                Debug.Log("wrong response");
-            }
+            // just work for new sensor other else cluase never use any more but if u want work with 
+            // old sensor u must clean code and comment this part
+            Debug.Log("omad");
+            CraneTask craneTask = new CraneTask();
+            craneTask = JsonConvert.DeserializeObject<CraneTask>(str);
+            craneTasks.Enqueue(craneTask);
+            Debug.Log("done");
         }
+        // }else {
+        //     // old parser system
+        //     string[] parts = str.Split(' ');
+        //     if (parts.Length == 6)
+        //     {
+        //         Debug.Log("does not supported 5 param");
+        //     }
+        //     else if (parts.Length == 4 || parts.Length == 5)
+        //     {
+        //         Worker newWork = new Worker();
+        //         if (parts[0][0] == '$' || parts[0].Contains(craneName)) //if the name start with $ its gps data
+        //         {
+        //             if (!isUTM)
+        //             {
+        //                 // some functions handle isUtm inside of them ,
+        //                 // but inside this scope we handle degree input 
+        //                 // lets do it :)
+        //                 CraneTask newCraneTask = new CraneTask();
+        //                 //Debug.Log("parts : " + parts[1] + " _ " + parts[2] + " _ " + parts[3]);
+        //                 if (parts.Length == 5)
+        //                 {
+        //                     newCraneTask.SetParams(parts[1], parts[2], parts[3], parts[4]);
+        //                 }
+        //                 else
+        //                 {
+        //                     newCraneTask.SetParams(parts[1], parts[2], parts[3]);
+        //                 }
+        //
+        //                 craneTasks.Enqueue(newCraneTask);
+        //                 //Debug.Log(craneTasks.IsEmpty);
+        //                 return;
+        //             }
+        //
+        //             // Debug.Log("parts : " + parts[1] + " _ " + parts[2] + " _ " + parts[3]);
+        //             // double latitude = latitudeConvertToDegree(parts[1]);
+        //             // double longtitude = longtitudeConvertToDegree(parts[2]);
+        //             // float height = float.Parse(parts[3]);
+        //
+        //             // Vector3 newTargetPos = findPosWithGpsData(latitude, longtitude, height);
+        //
+        //             // Debug.Log(newTargetPos);
+        //
+        //
+        //             // newWork.SetParams(parts[0], (int) (newTargetPos.x * ToMilimeter) * scale,
+        //             //    (int) (newTargetPos.z * ToMilimeter) * scale,
+        //             //    (int) (newTargetPos.y * ToMilimeter) * scale
+        //             // );
+        //         }
+        //         else
+        //         {
+        //             //todo probably u must change the indexes if u rotate the sensors in test env
+        //             newWork.SetParams(parts[0], Convert.ToInt32(parts[1]) * scale, Convert.ToInt32(parts[3]) * scale,
+        //                 Convert.ToInt32(parts[2]) * scale);
+        //         }
+        //
+        //         //tasks.Enqueue(newWork);
+        //         Debug.Log(newWork.ToString());
+        //     }
+        //     else
+        //     {
+        //         Debug.Log("wrong response");
+        //     }
+        // }
     }
 
     private double latitudeConvertToDegree(string latitude) // ddmm.mmmmmmm
@@ -226,7 +241,7 @@ public class NetworkManager : Singleton<NetworkManager>
                 min += latitude[i];
             }
 
-            double minDegree = float.Parse(min) / 60;    
+            double minDegree = float.Parse(min) / 60;
             return degree + minDegree;
         }
         else
@@ -251,13 +266,12 @@ public class NetworkManager : Singleton<NetworkManager>
 
             double minDegree = double.Parse(min) / 60;
 
-            return degree + minDegree;    
+            return degree + minDegree;
         }
         else
         {
             return double.Parse(longitude);
         }
-
     }
 
     [Serializable]
@@ -279,24 +293,25 @@ public class NetworkManager : Singleton<NetworkManager>
             this.target = target;
         }
     }
-    
+
     [Serializable]
     public struct CraneTask
     {
-        public String x;
-        public String y;
-        public String z;
-        public string qos;
-        
+        public String name { get; set; }
+        public String x { get; set; }
+        public String y { get; set; }
+        public String z { get; set; }
+        public string qos { get; set; }
 
-        public void SetParams( string x, string y, string z, GameObject target = null)
+
+        public void SetParams(string x, string y, string z, GameObject target = null)
         {
             this.x = x;
             this.y = y;
             this.z = z;
         }
 
-        public void SetParams( string x, string y, string z,string qos ,GameObject target = null)
+        public void SetParams(string x, string y, string z, string qos, GameObject target = null)
         {
             this.x = x;
             this.y = y;
@@ -312,8 +327,9 @@ public class NetworkManager : Singleton<NetworkManager>
         if (workerData.name.Contains(craneName))
         {
             Debug.Log("we have a carne");
-            craneTarget.position = converMilimeterToMeterAsVector(workerData.x, workerData.y, workerData.z) +pivot.transform.position;
-            
+            craneTarget.position = converMilimeterToMeterAsVector(workerData.x, workerData.y, workerData.z) +
+                                   pivot.transform.position;
+
             return;
         }
 
@@ -367,9 +383,10 @@ public class NetworkManager : Singleton<NetworkManager>
         double deltaLat = latitude - latitudePivot;
         double deltaLong = longtitude - longtitudePivot;
         float deltaH = h - heightPivot;
-        return new Vector3((float) movementBaseOnDegreeChange(deltaLat), (float) movementBaseOnDegreeChange(deltaLong), deltaH);
+        return new Vector3((float) movementBaseOnDegreeChange(deltaLat), (float) movementBaseOnDegreeChange(deltaLong),
+            deltaH);
     }
-    
+
     //new
     // private Vector3 findPosWithGpsData(double latitude, double longtitude, float h)
     // {
@@ -381,7 +398,8 @@ public class NetworkManager : Singleton<NetworkManager>
 
     private Vector3 globalPosWithGps(double lat, double lon)
     {
-        return new Vector3((float) (EarthRadius * math.cos(lat) * math.cos(lon)), (float) (EarthRadius * math.cos(lat) * math.sin(lon)),
+        return new Vector3((float) (EarthRadius * math.cos(lat) * math.cos(lon)),
+            (float) (EarthRadius * math.cos(lat) * math.sin(lon)),
             (float) (EarthRadius * math.sin(lat)));
     }
 
@@ -390,7 +408,7 @@ public class NetworkManager : Singleton<NetworkManager>
         float radian = degree * math.PI / 180;
         return radian * EarthRadius;
     }
-    
+
     private double movementBaseOnDegreeChange(double degree)
     {
         double radian = degree * math.PI / 180;
