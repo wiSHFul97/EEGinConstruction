@@ -1192,7 +1192,7 @@ PrefabInstance:
       objectReference: {fileID: 1673320563}
     - target: {fileID: 6553388085953670843, guid: c5d8ddb189ee5964fa99eb8c24184cd8, type: 3}
       propertyPath: smothnessSpeed
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5d8ddb189ee5964fa99eb8c24184cd8, type: 3}

@@ -35,7 +35,7 @@ public class NetworkManager : Singleton<NetworkManager>
     private float heightPivot;
     private Vector3 globalVectorPosPivot;
 
-    private const float EarthRadius = 6371000 + 1200; // R + Tehran H
+    private const float EarthRadius = 6371000 + 1200; // R + Tehran H // not important ,no usage any more
     private const float ToMilimeter = 1000;
 
 
@@ -154,11 +154,11 @@ public class NetworkManager : Singleton<NetworkManager>
         else
         {
             string[] parts = str.Split(' ');
-            if (parts.Length == 5)
+            if (parts.Length == 6)
             {
                 Debug.Log("does not supported 5 param");
             }
-            else if (parts.Length == 4)
+            else if (parts.Length == 4 || parts.Length == 5)
             {
                 Worker newWork = new Worker();
                 if (parts[0][0] == '$' || parts[0].Contains(craneName)) //if the name start with $ its gps data
@@ -170,7 +170,11 @@ public class NetworkManager : Singleton<NetworkManager>
                         // lets do it :)
                         CraneTask newCraneTask = new CraneTask();
                         //Debug.Log("parts : " + parts[1] + " _ " + parts[2] + " _ " + parts[3]);
-                        newCraneTask.SetParams(parts[1],parts[2],parts[3]);
+                        if(parts.Length == 5){
+                            newCraneTask.SetParams(parts[1],parts[2],parts[3],parts[4]);
+                        }else{
+                            newCraneTask.SetParams(parts[1],parts[2],parts[3]);
+                        }
                         craneTasks.Enqueue(newCraneTask);
                         //Debug.Log(craneTasks.IsEmpty);
                         return;
@@ -282,6 +286,7 @@ public class NetworkManager : Singleton<NetworkManager>
         public String x;
         public String y;
         public String z;
+        public string qos;
         
 
         public void SetParams( string x, string y, string z, GameObject target = null)
@@ -289,6 +294,14 @@ public class NetworkManager : Singleton<NetworkManager>
             this.x = x;
             this.y = y;
             this.z = z;
+        }
+
+        public void SetParams( string x, string y, string z,string qos ,GameObject target = null)
+        {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.qos = qos;
         }
     }
 
