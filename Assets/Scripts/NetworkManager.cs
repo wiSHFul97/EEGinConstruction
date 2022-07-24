@@ -114,6 +114,7 @@ public class NetworkManager : Singleton<NetworkManager>
     {
         //new gps tool kit
         Debug.Log("---- " + craneTask.x + " " + craneTask.y + " " + craneTask.z + " qos :" + craneTask.qos);
+        UpdateUiQos(craneTask.qos);
         var latlon = new LatLon(Double.Parse(craneTask.y), Double.Parse(craneTask.x), Double.Parse(craneTask.z));
         // var latlon = new LatLon(35.6887381798642, 51.4389399276739, 10.8663187026978);
         latlon.Altitude -= 1271;
