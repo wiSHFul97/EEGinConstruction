@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField]private GameObject character;
+    // [SerializeField]private GameObject character;
     
     [SerializeField]private Transform[] cameras;
 
@@ -56,36 +56,6 @@ public class CameraController : MonoBehaviour
         cameras[camNumber].gameObject.SetActive(true);;
     }
     
-    private void changeCamera(string index)
-    {
-        Debug.Log(index);
-        Debug.Log("----");
-        if (index == "")
-        {
-            Debug.Log("get null");
-            return;
-        }
-
-        try
-        {
-            int x = int.Parse(index);
-            Debug.Log("i get : " + x);
-            if (x == 0)
-            {
-                turnOffAllcams();
-                character.SetActive(true);
-                return;
-            }
-
-            turnOffAllcams();
-            cameras[x].gameObject.SetActive(true);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-    }
 
     private void turnOffAllcams()
     {

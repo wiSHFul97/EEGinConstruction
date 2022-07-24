@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 
 public class NetworkManager : Singleton<NetworkManager>
 {
+    [SerializeField] private Text QosText; 
     [SerializeField] private int scale;
     [SerializeField] private GameObject workerGameObject;
     [SerializeField] private GameObject emptyTarget;
@@ -122,6 +123,11 @@ public class NetworkManager : Singleton<NetworkManager>
         // craneTarget.position = new Vector3((float)v.x, (float)v.y, (float)v.z);
     }
 
+    private void UpdateUiQos(string qos)
+    {
+        QosText.text = qos;
+    }
+
 
     public void ReceiveCallback(IAsyncResult ar)
     {
@@ -162,69 +168,6 @@ public class NetworkManager : Singleton<NetworkManager>
             craneTasks.Enqueue(craneTask);
             Debug.Log("done");
         }
-        // }else {
-        //     // old parser system
-        //     string[] parts = str.Split(' ');
-        //     if (parts.Length == 6)
-        //     {
-        //         Debug.Log("does not supported 5 param");
-        //     }
-        //     else if (parts.Length == 4 || parts.Length == 5)
-        //     {
-        //         Worker newWork = new Worker();
-        //         if (parts[0][0] == '$' || parts[0].Contains(craneName)) //if the name start with $ its gps data
-        //         {
-        //             if (!isUTM)
-        //             {
-        //                 // some functions handle isUtm inside of them ,
-        //                 // but inside this scope we handle degree input 
-        //                 // lets do it :)
-        //                 CraneTask newCraneTask = new CraneTask();
-        //                 //Debug.Log("parts : " + parts[1] + " _ " + parts[2] + " _ " + parts[3]);
-        //                 if (parts.Length == 5)
-        //                 {
-        //                     newCraneTask.SetParams(parts[1], parts[2], parts[3], parts[4]);
-        //                 }
-        //                 else
-        //                 {
-        //                     newCraneTask.SetParams(parts[1], parts[2], parts[3]);
-        //                 }
-        //
-        //                 craneTasks.Enqueue(newCraneTask);
-        //                 //Debug.Log(craneTasks.IsEmpty);
-        //                 return;
-        //             }
-        //
-        //             // Debug.Log("parts : " + parts[1] + " _ " + parts[2] + " _ " + parts[3]);
-        //             // double latitude = latitudeConvertToDegree(parts[1]);
-        //             // double longtitude = longtitudeConvertToDegree(parts[2]);
-        //             // float height = float.Parse(parts[3]);
-        //
-        //             // Vector3 newTargetPos = findPosWithGpsData(latitude, longtitude, height);
-        //
-        //             // Debug.Log(newTargetPos);
-        //
-        //
-        //             // newWork.SetParams(parts[0], (int) (newTargetPos.x * ToMilimeter) * scale,
-        //             //    (int) (newTargetPos.z * ToMilimeter) * scale,
-        //             //    (int) (newTargetPos.y * ToMilimeter) * scale
-        //             // );
-        //         }
-        //         else
-        //         {
-        //             //todo probably u must change the indexes if u rotate the sensors in test env
-        //             newWork.SetParams(parts[0], Convert.ToInt32(parts[1]) * scale, Convert.ToInt32(parts[3]) * scale,
-        //                 Convert.ToInt32(parts[2]) * scale);
-        //         }
-        //
-        //         //tasks.Enqueue(newWork);
-        //         Debug.Log(newWork.ToString());
-        //     }
-        //     else
-        //     {
-        //         Debug.Log("wrong response");
-        //     }
-        // }
     }
 
     private double latitudeConvertToDegree(string latitude) // ddmm.mmmmmmm
