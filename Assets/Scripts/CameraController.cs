@@ -6,15 +6,14 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField]private GameObject character;
-    [SerializeField]private GameObject characterCamera;
+    
+    [SerializeField]private Transform[] cameras;
 
-    
-    private Transform[] cameras;
-    
+
+    private int camNumber = 1;
     void Awake()
     {
         //turn off all cameras and then turn on the first one
-        cameras = this.gameObject.GetComponentsInChildren<Transform>();
         turnOffAllcams();
         cameras[1].gameObject.SetActive(true);
         Debug.Log(cameras.Length);
@@ -23,14 +22,44 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.inputString != "")
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            changeCamera(Input.inputString);
+            moveLeftCam();
         }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            moveRightCam();
+        }
+        
     }
 
+    private void moveRightCam()
+    {
+        turnOffAllcams();
+        camNumber++;
+        if (camNumber >= cameras.Length)
+        {
+            camNumber = 1;
+        }
+        cameras[camNumber].gameObject.SetActive(true);
+    }
+
+    private void moveLeftCam()
+    {
+        turnOffAllcams();
+        camNumber--;
+        if (camNumber == 0)
+        {
+            camNumber = cameras.Length -1 ;
+        }
+        cameras[camNumber].gameObject.SetActive(true);;
+    }
+    
     private void changeCamera(string index)
     {
+        Debug.Log(index);
+        Debug.Log("----");
         if (index == "")
         {
             Debug.Log("get null");
@@ -45,7 +74,6 @@ public class CameraController : MonoBehaviour
             {
                 turnOffAllcams();
                 character.SetActive(true);
-                characterCamera.SetActive(true);
                 return;
             }
 
@@ -65,5 +93,6 @@ public class CameraController : MonoBehaviour
         {
             cameras[i].gameObject.SetActive(false);
         }
+        // character.SetActive(false);
     }
 }
