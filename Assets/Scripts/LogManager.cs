@@ -9,6 +9,7 @@ using UnityEngine;
 public class LogManager : MonoBehaviour
 {
     [SerializeField] private float dataRatePerSec = 10;
+    [SerializeField] private string fileName = "logGpsFinal";
 
     // Start is called before the first frame update
     private NetworkManager _NetworkManager;
@@ -22,7 +23,12 @@ public class LogManager : MonoBehaviour
             return;
         }
 
-        var textFile = Resources.Load<TextAsset>("logs/logGpsFinal");
+        if (fileName.Contains(".txt"))
+        {
+            fileName = fileName.Remove(fileName.Length - 4);
+        }
+
+        var textFile = Resources.Load<TextAsset>("logs/" + fileName);
         Debug.Log(textFile.text);
         StartCoroutine(logHandler(textFile.text));
     }

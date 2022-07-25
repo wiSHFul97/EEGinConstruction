@@ -1975,6 +1975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataRatePerSec: 10
+  fileName: logGpsFinal.txt
 --- !u!1001 &8612840436841103146
 PrefabInstance:
   m_ObjectHideFlags: 0
