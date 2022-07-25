@@ -26,6 +26,7 @@ public class NetworkManager : Singleton<NetworkManager>
     [SerializeField] private bool isUTM;
     [SerializeField] private GameObject pivot;
     [SerializeField] private string[] gpsPivotData;
+    [SerializeField] private bool isOnline;
     private ConcurrentQueue<Worker> tasks;
     private ConcurrentQueue<CraneTask> craneTasks;
 
@@ -56,6 +57,12 @@ public class NetworkManager : Singleton<NetworkManager>
 
     void Start()
     {
+        if (!isOnline)
+        {
+            // do nothing if its offline 
+            // in offline mode LogHandler will handle the positions of the crans by the help of this class
+            return;
+        }
         // This constructor arbitrarily assigns the local port number.
         UdpClient udpClient = new UdpClient();
 
@@ -112,17 +119,17 @@ public class NetworkManager : Singleton<NetworkManager>
 
     private void craneUpdate(CraneTask craneTask)
     {
-        //new gps tool kit
+        //new gps tool kit (RTK)
         Debug.Log("---- " + craneTask.x + " " + craneTask.y + " " + craneTask.z + " qos :" + craneTask.qos);
         UpdateUiQos(craneTask.qos);
         var latlon = new LatLon(Double.Parse(craneTask.y), Double.Parse(craneTask.x), Double.Parse(craneTask.z));
-        // var latlon = new LatLon(35.6887381798642, 51.4389399276739, 10.8663187026978);
         latlon.Altitude -= 1271;
         Debug.Log(latlon.Latitude + " " + latlon.Longitude + " " + latlon.Altitude);
         ArcGISLocationComponent arcGISLocationComponent = craneTarget.GetComponent<ArcGISLocationComponent>();
         arcGISLocationComponent.Position = latlon;
-        // craneTarget.position = new Vector3((float)v.x, (float)v.y, (float)v.z);
     }
+
+    
 
     private void UpdateUiQos(string qos)
     {
@@ -163,14 +170,21 @@ public class NetworkManager : Singleton<NetworkManager>
         {
             // just work for new sensor other else cluase never use any more but if u want work with 
             // old sensor u must clean code and comment this part
-            Debug.Log("omad");
-            CraneTask craneTask = new CraneTask();
-            craneTask = JsonConvert.DeserializeObject<CraneTask>(str);
-            craneTasks.Enqueue(craneTask);
-            Debug.Log("done");
+            HandleJsonPosCrane(str);
         }
     }
 
+    public void HandleJsonPosCrane(string json)
+    {
+        Debug.Log("omad");
+        CraneTask craneTask = new CraneTask();
+        craneTask = JsonConvert.DeserializeObject<CraneTask>(json);
+        craneTasks.Enqueue(craneTask);
+        Debug.Log("done");
+        return;
+    }
+    
+    
     private double latitudeConvertToDegree(string latitude) // ddmm.mmmmmmm
     {
         if (isUTM)
@@ -331,15 +345,6 @@ public class NetworkManager : Singleton<NetworkManager>
             deltaH);
     }
 
-    //new
-    // private Vector3 findPosWithGpsData(double latitude, double longtitude, float h)
-    // {
-    //     Vector3 newPos = globalPosWithGps(latitude, longtitude) ;
-    //     newPos = newPos + newPos.normalized * h;
-    //     Vector3 relativePos = newPos - globalVectorPosPivot;
-    //     return relativePos;
-    // }
-
     private Vector3 globalPosWithGps(double lat, double lon)
     {
         return new Vector3((float) (EarthRadius * math.cos(lat) * math.cos(lon)),
@@ -357,5 +362,10 @@ public class NetworkManager : Singleton<NetworkManager>
     {
         double radian = degree * math.PI / 180;
         return radian * EarthRadius;
+    }
+
+    public bool IsOnline()
+    {
+        return isOnline;
     }
 }
