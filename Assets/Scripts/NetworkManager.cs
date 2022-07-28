@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 
 public class NetworkManager : Singleton<NetworkManager>
 {
-    [SerializeField] private Text QosText; 
+    [SerializeField] private Text QosText;
     [SerializeField] private int scale;
     [SerializeField] private GameObject workerGameObject;
     [SerializeField] private GameObject emptyTarget;
@@ -42,6 +42,10 @@ public class NetworkManager : Singleton<NetworkManager>
     private const float ToMilimeter = 1000;
 
 
+    private static string ACCEPTABLE = "Reliable";
+    private static string NOT_ACCEPTABLE = "Not reliable";
+
+
     //todo check it to run
     void Awake()
     {
@@ -63,6 +67,7 @@ public class NetworkManager : Singleton<NetworkManager>
             // in offline mode LogHandler will handle the positions of the crans by the help of this class
             return;
         }
+
         // This constructor arbitrarily assigns the local port number.
         UdpClient udpClient = new UdpClient();
 
@@ -129,11 +134,27 @@ public class NetworkManager : Singleton<NetworkManager>
         arcGISLocationComponent.Position = latlon;
     }
 
-    
 
     private void UpdateUiQos(string qos)
     {
-        QosText.text = qos;
+        string msg = qos + "_";
+        switch (qos)
+        {
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+                // 1 or 2 or 3 or 4
+                msg += ACCEPTABLE;
+                QosText.color = Color.green;
+                break;
+            default:
+                msg += NOT_ACCEPTABLE;
+                QosText.color = Color.red;
+                break;
+        }
+
+        QosText.text = msg;
     }
 
 
@@ -166,7 +187,8 @@ public class NetworkManager : Singleton<NetworkManager>
         {
             //ignore in this cases
             Debug.Log("ignored");
-        }else
+        }
+        else
         {
             // just work for new sensor other else cluase never use any more but if u want work with 
             // old sensor u must clean code and comment this part
@@ -183,8 +205,8 @@ public class NetworkManager : Singleton<NetworkManager>
         Debug.Log("done");
         return;
     }
-    
-    
+
+
     private double latitudeConvertToDegree(string latitude) // ddmm.mmmmmmm
     {
         if (isUTM)
