@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     [SerializeField]private Transform[] cameras;
 
 
-    private int camNumber = 1;
+    private int camNumber = 0;
     void Awake()
     {
         //turn off all cameras and then turn on the first one
@@ -40,7 +40,7 @@ public class CameraController : MonoBehaviour
         camNumber++;
         if (camNumber >= cameras.Length)
         {
-            camNumber = 1;
+            camNumber = 0;
         }
         cameras[camNumber].gameObject.SetActive(true);
     }
