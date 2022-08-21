@@ -49,7 +49,7 @@ public class CameraController : MonoBehaviour
     {
         turnOffAllcams();
         camNumber--;
-        if (camNumber == 0)
+        if (camNumber == -1)
         {
             camNumber = cameras.Length -1 ;
         }
