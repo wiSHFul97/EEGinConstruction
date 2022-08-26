@@ -48,7 +48,7 @@ public class LogManager : MonoBehaviour
             var match = filter.Match(line);
             if (match.Success)
             {
-                Debug.Log(match.Value);
+                // Debug.Log(match.Value);
                 _NetworkManager.HandleJsonPosCrane(match.Value);
                 yield return new WaitForSeconds(1 / dataRatePerSec);
             }
