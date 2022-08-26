@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7af868eb-8195-4c07-be07-aa204f9c8377" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VR_Building_3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VR_Building_3/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TestServer 1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TestServer 1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LogManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LogManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +14,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/NetworkManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fd88a7f744c8413fa794c8fc6e0439f6144200/af/91ef2768/Object.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -85,6 +83,7 @@
       <workItem from="1659024557552" duration="1238000" />
       <workItem from="1659766728506" duration="2466000" />
       <workItem from="1661522498668" duration="5590000" />
+      <workItem from="1661535309184" duration="3894000" />
     </task>
     <servers />
   </component>
