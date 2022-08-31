@@ -128,7 +128,7 @@ public class NetworkManager : Singleton<NetworkManager>
         Debug.Log("---- " + craneTask.x + " " + craneTask.y + " " + craneTask.z + " qos :" + craneTask.qos);
         UpdateUiQos(craneTask.qos);
         var latlon = new LatLon(Double.Parse(craneTask.y), Double.Parse(craneTask.x), Double.Parse(craneTask.z));
-        latlon.Altitude -= 0;
+        latlon.Altitude -= 1271;
         Debug.Log(latlon.Latitude + " " + latlon.Longitude + " " + latlon.Altitude);
         ArcGISLocationComponent arcGISLocationComponent = craneTarget.GetComponent<ArcGISLocationComponent>();
         arcGISLocationComponent.Position = latlon;
