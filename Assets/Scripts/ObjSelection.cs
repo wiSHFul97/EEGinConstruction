@@ -17,41 +17,60 @@ public class ObjSelection : MonoBehaviour
 
     [SerializeField] private InputField YScale;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
+    private GameObject lastSelectedObj = null;
 
     public void makeCube()
     {
         GameObject newObj = Instantiate(cube);
-        newObj.transform.localScale = new Vector3(float.Parse(XScale.text=="" ? "1" : XScale.text), float.Parse(YScale.text=="" ? "1" : YScale.text),
+        newObj.transform.localScale = new Vector3(float.Parse(XScale.text == "" ? "1" : XScale.text),
+            float.Parse(YScale.text == "" ? "1" : YScale.text),
             newObj.transform.localScale.z);
+        newObj.transform.SetParent(targetPos, false);
         newObj.transform.localPosition = Vector3.zero;
-        newObj.transform.SetParent(targetPos,false);
+        UpdateLastSelectedObj(newObj);
     }
 
     public void makeSphere()
     {
         GameObject newObj = Instantiate(sphere);
-        newObj.transform.localScale = new Vector3(float.Parse(XScale.text=="" ? "1" : XScale.text), float.Parse(YScale.text=="" ? "1" : YScale.text),
+        newObj.transform.localScale = new Vector3(float.Parse(XScale.text == "" ? "1" : XScale.text),
+            float.Parse(YScale.text == "" ? "1" : YScale.text),
             newObj.transform.localScale.z);
-        newObj.transform.SetParent(targetPos,false);
+        newObj.transform.SetParent(targetPos, false);
         newObj.transform.localPosition = Vector3.zero;
+        UpdateLastSelectedObj(newObj);
         Debug.Log("clicked sphere");
     }
 
     public void makeCapsule()
     {
         GameObject newObj = Instantiate(capsule, targetPos.position, quaternion.identity);
-        newObj.transform.localScale = new Vector3(float.Parse(XScale.text=="" ? "1" : XScale.text), float.Parse(YScale.text=="" ? "1" : YScale.text),
+        newObj.transform.localScale = new Vector3(float.Parse(XScale.text == "" ? "1" : XScale.text),
+            float.Parse(YScale.text == "" ? "1" : YScale.text),
             newObj.transform.localScale.z);
+        newObj.transform.SetParent(targetPos, false);
         newObj.transform.localPosition = Vector3.zero;
-        newObj.transform.SetParent(targetPos,false);
+        UpdateLastSelectedObj(newObj);
+    }
+
+    public void installButton()
+    {
+        if (lastSelectedObj == null)
+        {
+            return;
+        }
+
+        lastSelectedObj.transform.parent = null;
+        lastSelectedObj = null;
+    }
+
+    private void UpdateLastSelectedObj(GameObject newObj)
+    {
+        if (lastSelectedObj != null)
+        {
+            Destroy(lastSelectedObj);
+        }
+
+        lastSelectedObj = newObj;
     }
 }
