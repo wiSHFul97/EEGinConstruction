@@ -198,11 +198,9 @@ public class NetworkManager : Singleton<NetworkManager>
 
     public void HandleJsonPosCrane(string json)
     {
-        Debug.Log("omad");
         CraneTask craneTask = new CraneTask();
         craneTask = JsonConvert.DeserializeObject<CraneTask>(json);
         craneTasks.Enqueue(craneTask);
-        Debug.Log("done");
         return;
     }
 
