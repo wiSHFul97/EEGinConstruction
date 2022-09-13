@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7af868eb-8195-4c07-be07-aa204f9c8377" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VR_Building_3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VR_Building_3/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NetworkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NetworkManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CameraLogs/Camera.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CameraLogs/Camera.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +15,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/NetworkManager.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b70370f7c0e548a9ac87525f3abd0ef93ea30/7f/436176b4/Enumerable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b70370f7c0e548a9ac87525f3abd0ef93ea30/7f/436176b4/Enumerable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fd88a7f744c8413fa794c8fc6e0439f6144200/af/91ef2768/Object.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -90,6 +89,7 @@
       <workItem from="1662224276767" duration="2890000" />
       <workItem from="1662232360174" duration="201000" />
       <workItem from="1662297736408" duration="5752000" />
+      <workItem from="1663051855026" duration="1914000" />
     </task>
     <servers />
   </component>
