@@ -16,7 +16,17 @@ public class ObjSelection : MonoBehaviour
     [SerializeField] private InputField XScale;
 
     [SerializeField] private InputField YScale;
+    
+    [SerializeField] private InputField ZScale;
 
+    [SerializeField] private InputField XScaleColl;
+
+    [SerializeField] private InputField YScaleColl;
+    
+    [SerializeField] private InputField ZScaleColl;
+
+
+    
     private GameObject lastSelectedObj = null;
 
     public void makeCube()
@@ -24,10 +34,16 @@ public class ObjSelection : MonoBehaviour
         GameObject newObj = Instantiate(cube);
         newObj.transform.localScale = new Vector3(float.Parse(XScale.text == "" ? "1" : XScale.text),
             float.Parse(YScale.text == "" ? "1" : YScale.text),
-            newObj.transform.localScale.z);
+            float.Parse(ZScale.text == "" ? "1" : ZScale.text));
         newObj.transform.SetParent(targetPos, false);
         newObj.transform.localPosition = Vector3.zero;
         UpdateLastSelectedObj(newObj);
+        
+        //cube also get check box collider
+        BoxCollider collider = newObj.GetComponent<BoxCollider>();
+        collider.size = new Vector3(float.Parse(XScale.text == "" ? "1" : XScaleColl.text),
+            float.Parse(YScale.text == "" ? "1" : YScaleColl.text),
+            float.Parse(ZScale.text == "" ? "1" : ZScaleColl.text));
     }
 
     public void makeSphere()
@@ -35,7 +51,7 @@ public class ObjSelection : MonoBehaviour
         GameObject newObj = Instantiate(sphere);
         newObj.transform.localScale = new Vector3(float.Parse(XScale.text == "" ? "1" : XScale.text),
             float.Parse(YScale.text == "" ? "1" : YScale.text),
-            newObj.transform.localScale.z);
+            float.Parse(ZScale.text == "" ? "1" : ZScale.text));
         newObj.transform.SetParent(targetPos, false);
         newObj.transform.localPosition = Vector3.zero;
         UpdateLastSelectedObj(newObj);
@@ -47,7 +63,7 @@ public class ObjSelection : MonoBehaviour
         GameObject newObj = Instantiate(capsule, targetPos.position, quaternion.identity);
         newObj.transform.localScale = new Vector3(float.Parse(XScale.text == "" ? "1" : XScale.text),
             float.Parse(YScale.text == "" ? "1" : YScale.text),
-            newObj.transform.localScale.z);
+            float.Parse(ZScale.text == "" ? "1" : ZScale.text));
         newObj.transform.SetParent(targetPos, false);
         newObj.transform.localPosition = Vector3.zero;
         UpdateLastSelectedObj(newObj);

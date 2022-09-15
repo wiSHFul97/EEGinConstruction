@@ -136,7 +136,7 @@ public class CameraController : MonoBehaviour
         }
 
         Debug.Log("Did not Hit any thing");
-        return 404;
+        return 2;
     }
 
     class CamsStatus
