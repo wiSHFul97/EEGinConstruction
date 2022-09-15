@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="7af868eb-8195-4c07-be07-aa204f9c8377" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VR_Building_3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VR_Building_3/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GollabAllert.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GollabAllert.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjSelection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjSelection.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CameraLogs/Camera.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CameraLogs/Camera.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefab/CraneFinal.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefab/CraneFinal.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +95,7 @@
       <workItem from="1662297736408" duration="5752000" />
       <workItem from="1663051855026" duration="1914000" />
       <workItem from="1663252811556" duration="849000" />
-      <workItem from="1663261413479" duration="611000" />
+      <workItem from="1663261413479" duration="2034000" />
     </task>
     <servers />
   </component>

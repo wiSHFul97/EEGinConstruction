@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 21387666392985673}
   - component: {fileID: 21387666391691369}
   - component: {fileID: 21387666390561449}
+  - component: {fileID: 9064756076064138519}
   - component: {fileID: 3845422034991171367}
   m_Layer: 0
   m_Name: CranePulley_02a_snaps005
@@ -85,6 +86,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &9064756076064138519
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21387666392755305}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 8, z: 8}
+  m_Center: {x: 0, y: -0.94, z: -0.0000009536743}
 --- !u!64 &3845422034991171367
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -94,7 +108,7 @@ MeshCollider:
   m_GameObject: {fileID: 21387666392755305}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -150,7 +164,7 @@ MonoBehaviour:
   radius: {fileID: 8612840436818927042}
   rope: {fileID: 21387666392985673}
   ropeDistanceToTargetY: 2.2
-  smothnessSpeed: 0
+  rotationSmoothnessSpeed: 0
 --- !u!1 &8612840436464492150
 GameObject:
   m_ObjectHideFlags: 0

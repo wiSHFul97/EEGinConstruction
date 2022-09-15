@@ -33,6 +33,7 @@ public class GollabAllert : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Allert find something");
         if (other.gameObject.layer == LayerMask.NameToLayer("building"))
         {
             turnOnTheAlarm();

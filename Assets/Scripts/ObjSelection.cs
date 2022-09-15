@@ -26,8 +26,15 @@ public class ObjSelection : MonoBehaviour
     [SerializeField] private InputField ZScaleColl;
 
 
+    [SerializeField] private BoxCollider boxCollider;
     
     private GameObject lastSelectedObj = null;
+
+    private Vector3 defaultSizeColl;
+    private void Awake()
+    {
+        defaultSizeColl = boxCollider.size;
+    }
 
     public void makeCube()
     {
@@ -40,8 +47,8 @@ public class ObjSelection : MonoBehaviour
         UpdateLastSelectedObj(newObj);
         
         //cube also get check box collider
-        BoxCollider collider = newObj.GetComponent<BoxCollider>();
-        collider.size = new Vector3(float.Parse(XScale.text == "" ? "1" : XScaleColl.text),
+      
+        boxCollider.size = new Vector3(float.Parse(XScale.text == "" ? "1" : XScaleColl.text),
             float.Parse(YScale.text == "" ? "1" : YScaleColl.text),
             float.Parse(ZScale.text == "" ? "1" : ZScaleColl.text));
     }
@@ -78,6 +85,8 @@ public class ObjSelection : MonoBehaviour
 
         lastSelectedObj.transform.parent = null;
         lastSelectedObj = null;
+
+        boxCollider.size = defaultSizeColl;
     }
 
     private void UpdateLastSelectedObj(GameObject newObj)
