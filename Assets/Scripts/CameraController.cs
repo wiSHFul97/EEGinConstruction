@@ -193,8 +193,11 @@ public class CameraController : MonoBehaviour
         for (int i = 0; i < cameras.Length; i++)
         {
             Debug.Log(allStats.Count );
-            string txt = cameras[i].name + "," + 1.0f * ones[i] / allStats.Count + "," +
-                         1.0f * twos[i] / allStats.Count + "," + 1.0f * threes[i] / allStats.Count +"," +allStats.Count;
+            float onePercentage = 1.0f * ones[i] / allStats.Count; //out of sight
+            float twosPercentage = 1.0f * twos[i] / allStats.Count; // in sight without direct sight
+            float threesPercentage = 1.0f * threes[i] / allStats.Count; // direct sight
+            string txt = cameras[i].name + "," + onePercentage + "," +
+                         (twosPercentage + threesPercentage) + "," + threesPercentage +"," +allStats.Count;
             File.AppendAllText(txtDocName, txt + "\n");
             Debug.Log("*** log : " + txt);
         }

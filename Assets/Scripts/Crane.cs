@@ -11,10 +11,10 @@ public class Crane : MonoBehaviour
 
     [SerializeField] private float ropeDistanceToTargetY;
 
-    [SerializeField] private float smothnessSpeed;
+    // [SerializeField] private float smothnessSpeed;
 
+    [SerializeField] private float rotationSmoothnessSpeed;
     
-
 
     // Update is called once per frame
     void Update()
@@ -28,7 +28,7 @@ public class Crane : MonoBehaviour
         // the second argument, upwards, defaults to Vector3.up
         Quaternion targetRotation = Quaternion.LookRotation(relativeRotation, Vector3.up);
         // rotation.rotation = targetRotation;
-        rotation.rotation = Quaternion.Slerp(rotation.rotation , targetRotation , 0.2f);
+        rotation.rotation = Quaternion.Slerp(rotation.rotation , targetRotation , rotationSmoothnessSpeed);
 
         //gollab
         Vector3 radiusVector3 = target.position;

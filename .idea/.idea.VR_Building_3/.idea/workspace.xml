@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7af868eb-8195-4c07-be07-aa204f9c8377" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TestServer 1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TestServer 1.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.VR_Building_3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VR_Building_3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Crane.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Crane.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CameraLogs/Camera.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CameraLogs/Camera.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
