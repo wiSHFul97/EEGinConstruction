@@ -55,6 +55,7 @@ public class ObjSelection : MonoBehaviour
 
     public void makeSphere()
     {
+        //deprecated and not used
         GameObject newObj = Instantiate(sphere);
         newObj.transform.localScale = new Vector3(float.Parse(XScale.text == "" ? "1" : XScale.text),
             float.Parse(YScale.text == "" ? "1" : YScale.text),
@@ -67,6 +68,7 @@ public class ObjSelection : MonoBehaviour
 
     public void makeCapsule()
     {
+        //deprecated and not used
         GameObject newObj = Instantiate(capsule, targetPos.position, quaternion.identity);
         newObj.transform.localScale = new Vector3(float.Parse(XScale.text == "" ? "1" : XScale.text),
             float.Parse(YScale.text == "" ? "1" : YScale.text),
@@ -84,6 +86,9 @@ public class ObjSelection : MonoBehaviour
         }
 
         lastSelectedObj.transform.parent = null;
+        
+        Destroy(lastSelectedObj);
+        
         lastSelectedObj = null;
 
         boxCollider.size = defaultSizeColl;
