@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -48,8 +49,14 @@ public class LogManager : MonoBehaviour
             var match = filter.Match(line);
             if (match.Success)
             {
-                // Debug.Log(match.Value);
-                _NetworkManager.HandleJsonPosCrane(match.Value);
+                try
+                {
+                    _NetworkManager.HandleJsonPosCrane(match.Value);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
                 yield return new WaitForSeconds(1 / dataRatePerSec);
             }
         }
