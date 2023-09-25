@@ -7,8 +7,7 @@ The main purpose of this research is to identify blind spots in various crane ta
 
 ## [server repo](https://github.com/amkkashani/VR_Buildings_server/tree/master):
 
-The server side was developed using Golang. The server side was dockerized and could easily be deployed using the internal Docker compose setup.
-The server logged all data about the position and removed other types of data, such as first-handshaking logs and so on.
+The server side was developed using Golang. The server side was dockerized and could easily be deployed using the internal Docker compose setup. The server logged all data about the position and removed other types of data, such as first-handshaking logs and so on.
 
 
 
