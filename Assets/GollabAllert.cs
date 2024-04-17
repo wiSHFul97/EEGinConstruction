@@ -7,8 +7,9 @@ using UnityEngine.UI;
 public class GollabAllert : MonoBehaviour
 {
     [SerializeField] private Image alert;
+	[SerializeField] private AudioSource alarmSound;
 
-    [SerializeField]private int numberOfAlertedElements = 0;
+    // [SerializeField]private int numberOfAlertedElements = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -24,11 +25,16 @@ public class GollabAllert : MonoBehaviour
     private void turnOnTheAlarm()
     {
         alert.color = Color.red;
+		if (!alarmSound.isPlaying)
+			alarmSound.Play();
+
     }
 
     private void turnOffTheAlarm()
     {
         alert.color = Color.black;
+		if (alarmSound.isPlaying)
+			alarmSound.Stop();
     }
 
     private void OnTriggerEnter(Collider other)
