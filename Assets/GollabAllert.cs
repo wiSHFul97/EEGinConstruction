@@ -33,24 +33,18 @@ public class GollabAllert : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Allert find something");
-        if (other.gameObject.layer == LayerMask.NameToLayer("building"))
+        // Debug.Log("Allert find something");
+        // if (other.gameObject.layer == LayerMask.NameToLayer("building"))
+        if (other.gameObject.tag == "Player")
         {
             turnOnTheAlarm();
-            numberOfAlertedElements++;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("building"))
-        {
-            numberOfAlertedElements--;
-        }
-
-        if ( numberOfAlertedElements ==0)
-        {
-            turnOffTheAlarm();
+        if (other.gameObject.tag == "Player") {
+			turnOffTheAlarm();
         }
         
     }

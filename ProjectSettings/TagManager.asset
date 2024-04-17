@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - obstacle
+  - CinemachineTarget
+  - Crane
+  - Pickupable
   layers:
   - Default
   - TransparentFX
